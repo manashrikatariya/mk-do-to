@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+   <title>To-Do List</title>
+   <style>
+    body{
+      font-family:Arial,sans-serif;
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+    .container{
+      max-width:600px;
+      margin:20px auto;
+      padding:20px;
+      background-color:#f9f9f9;
+      border-radius:8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+     }
+     h1{
+      text-align:center;
+     }
+     input[type="text"]{
+     width:calc(100%-70px);
+     padding:10px;
+     margin-bottom:10px;
+     border-radius:4px;
+     border:1px solid #ccc;
+     }
+     button{
+      padding:10px 20px;
+      background-color:#4caf50;
+      color:#fff;
+      border:none;
+      border-radius:4px;
+      cursor:pointer;
+     }
+     button:hover{
+       background-color:#45a049;
+    }
+     ul{
+       life-style-type:none;
+       padding:0;
+    }
+    li{
+      display:flex
+      justify-content:space-between;
+      align-items:center;
+      padding:10px;
+      border-bottom:1px solid #ddd;
+    }
+    li:last-child{
+      border-bottom:none;
+    }
+    .delete-btn{
+      background-color:#f44336;
+    }
+    .delete-btn:hover{
+      background-color:#d32f2f;
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="container">
+ <h1>To-Do List</h1>
+ <input type="text"id="taskInput" placeholder="Add a new task...">
+ <button onclick="addTask()">Add Task</button>
+ <ul id="taskList"></ul>
+</div>
+
+<script>
+ //function to add a new task
+ function addTask(){
+   var input=document.getElementByld("taskInput");
+   var task=input.value;
+   if(task.trim()!==""){
+      var ul=document.getElementByld("taskList");
+      var li=document.createElement("li");
+      li.innerHTML=task+'<button class="delete-btn"onclick="delete Task(this)">Delete</button>';
+      ul.appendChild(li);
+      input.value="";
+      saveTask();
+    }
+  }
+
+ //Function to delete a task
+function deleteTask(element){
+     var li=element.parentElement;
+     li.remove();
+     saveTask();
+ }
+ //Function to save tasks to local storage 
+ function saveTask(){
+   var tasks=[];
+   var list=document.querySelectorAll("#taskList li");
+   lis.forEach(function(li){ 
+      tasks.push(li.textContent.trim());
+   });
+   localStorage.setltem("tasks",JSON.stringify(tasks));
+   }
+
+
+  //Function to load tasks from local storage 
+  function loadTask(){
+    var tasks=JSON.parse(localStorage.getltem("tasks"));
+    if (tasks){
+       var ul=document.getElementByld("taskList");
+       tasks.forEach(function(task){
+         var li=document.createElement("li");
+         li.innerHTML=task+'<button class="delete-btn" onclick="deleteTask(this)">Delete</button>';
+        ul.appendChild(li);
+       });
+      }
+     }
+
+ //Load tasks when the page is loaded
+ window.onload=loadTask;
+</script>
+
+
+
+</body>
+</html>
